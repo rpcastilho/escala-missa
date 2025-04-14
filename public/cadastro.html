@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro Escala de Missa</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
+    .container { max-width: 600px; margin: auto; padding: 20px; background: white; }
+    input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro de Escala</h2>
+    <form id="formEscala">
+      <input type="date" name="data" required />
+      <select name="horario" required>
+        <option value="18h">Sábado - 18h</option>
+        <option value="08h">Domingo - 08h</option>
+        <option value="10h">Domingo - 10h</option>
+        <option value="18hDom">Domingo - 18h</option>
+      </select>
+      <input type="text" name="leitores" placeholder="Leitores" required />
+      <input type="text" name="musica" placeholder="Música" required />
+      <input type="text" name="acolhida" placeholder="Acolhida" required />
+      <input type="text" name="coroinhas" placeholder="Coroinhas" required />
+      <input type="text" name="ministros" placeholder="Ministros" required />
+      <input type="text" name="diacono" placeholder="Diácono" required />
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('formEscala').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = form.data.value;
+      const horario = form.horario.value === '18hDom' ? '18h' : form.horario.value;
+      const chave = `${data} - ${horario}`;
+      const dados = {
+        leitores: form.leitores.value,
+        musica: form.musica.value,
+        acolhida: form.acolhida.value,
+        coroinhas: form.coroinhas.value,
+        ministros: form.ministros.value,
+        diacono: form.diacono.value
+      };
+      await fetch('/salvar-escala', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chave, dados })
+      });
+      alert('Salvo com sucesso!');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
