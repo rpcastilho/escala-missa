@@ -1,0 +1,18 @@
+{
+  "2025-04-19 - 18h": {
+    "leitores": "leitor1, leitor2",
+    "musica": "musico1, musico2",
+    "acolhida": "acolhida1, acolhida2",
+    "coroinhas": "coroinhas1,coroinha2",
+    "ministros": "mesc1, mesc2",
+    "diacono": "diacono1"
+  },
+  "2025-04-20 - 08h": {
+    "leitores": "leitor1, leitor2",
+    "musica": "musico1, musico2",
+    "acolhida": "acolhida1, acolhida2",
+    "coroinhas": "coroinhas1,coroinha2",
+    "ministros": "mesc1",
+    "diacono": "diacono1"
+  }
+}
