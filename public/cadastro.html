@@ -91,14 +91,20 @@
             const data = form.data.value;
             const horario = form.horario.value === '18hDom' ? '18h' : form.horario.value;
             const chave = `${data} - ${horario}`;
-            const dados = {
-                leitores: form.leitores.value,
-                musica: form.musica.value,
-                acolhida: form.acolhida.value,
-                coroinhas: form.coroinhas.value,
-                ministros: form.ministros.value,
-                diacono: form.diacono.value
-            };
+            const dados = {};
+
+            if (form.leitores.value.trim()) dados.leitores = form.leitores.value;
+            if (form.musica.value.trim()) dados.musica = form.musica.value;
+            if (form.acolhida.value.trim()) dados.acolhida = form.acolhida.value;
+            if (form.coroinhas.value.trim()) dados.coroinhas = form.coroinhas.value;
+            if (form.ministros.value.trim()) dados.ministros = form.ministros.value;
+            if (form.diacono.value.trim()) dados.diacono = form.diacono.value;
+
+            if (Object.keys(dados).length === 0) {
+                alert("Por favor, preencha ao menos um campo além da data e horário.");
+                return;
+            }
+
             await fetch('/salvar-escala', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
