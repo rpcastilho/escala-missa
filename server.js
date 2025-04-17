@@ -2,34 +2,50 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const DATA_FILE = path.join(__dirname, 'escala.json');
+const arquivoDados = path.join(__dirname, 'escalas.json');
 
+// Utilitário para carregar os dados
+function carregarDados() {
+    if (fs.existsSync(arquivoDados)) {
+        const raw = fs.readFileSync(arquivoDados);
+        return JSON.parse(raw);
+    }
+    return {};
+}
+
+// Utilitário para salvar os dados
+function salvarDados(dados) {
+    fs.writeFileSync(arquivoDados, JSON.stringify(dados, null, 2), 'utf8');
+}
+
+// Rota para salvar escala
 app.post('/salvar-escala', (req, res) => {
     const { chave, dados } = req.body;
-    let escalas = {};
+    const escalas = carregarDados();
 
-    if (fs.existsSync(DATA_FILE)) {
-        escalas = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    // Se já existe, mescla com os dados existentes
+    if (!escalas[chave]) {
+        escalas[chave] = {};
     }
 
-    escalas[chave] = dados;
+    escalas[chave] = {
+        ...escalas[chave],
+        ...dados
+    };
 
-    fs.writeFileSync(DATA_FILE, JSON.stringify(escalas, null, 2), 'utf8');
+    salvarDados(escalas);
     res.sendStatus(200);
 });
 
-app.get('/consultar-escalas', (req, res) => {
-    if (fs.existsSync(DATA_FILE)) {
-        const escalas = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-        res.json(escalas);
-    } else {
-        res.json({});
-    }
+// Rota para retornar as escalas
+app.get('/escalas', (req, res) => {
+    const dados = carregarDados();
+    res.json(dados);
 });
 
 app.listen(PORT, () => {
