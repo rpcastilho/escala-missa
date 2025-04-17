@@ -46,7 +46,7 @@
         }
 
         async function carregarEscalas() {
-            const resposta = await fetch('/consultar-escalas');
+            const resposta = await fetch('/escalas');
             const escalas = await resposta.json();
             const container = document.getElementById('listaEscalas');
             container.innerHTML = '';
