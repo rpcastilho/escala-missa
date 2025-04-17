@@ -59,12 +59,12 @@
                 div.classList.add('escala');
                 div.innerHTML = `
                     <h3>${formatarData(data)} - ${horario}</h3>
-                    <p><strong>Leitores:</strong> ${escala.leitores}</p>
-                    <p><strong>Música:</strong> ${escala.musica}</p>
-                    <p><strong>Acolhida:</strong> ${escala.acolhida}</p>
-                    <p><strong>Coroinhas:</strong> ${escala.coroinhas}</p>
-                    <p><strong>Ministros:</strong> ${escala.ministros}</p>
-                    <p><strong>Diácono:</strong> ${escala.diacono}</p>
+                    <p><strong>Leitores:</strong> ${escala.leitores || ''}</p>
+                    <p><strong>Música:</strong> ${escala.musica || ''}</p>
+                    <p><strong>Acolhida:</strong> ${escala.acolhida || ''}</p>
+                    <p><strong>Coroinhas:</strong> ${escala.coroinhas || ''}</p>
+                    <p><strong>Ministros:</strong> ${escala.ministros || ''}</p>
+                    <p><strong>Diácono:</strong> ${escala.diacono || ''}</p>
                 `;
                 container.appendChild(div);
             });
