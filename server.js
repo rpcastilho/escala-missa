@@ -48,6 +48,7 @@ app.get('/escalas', (req, res) => {
     res.json(dados);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
