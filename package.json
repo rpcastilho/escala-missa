@@ -1,12 +1,13 @@
 {
   "name": "escala-missa",
   "version": "1.0.0",
-  "description": "Sistema simples para cadastro e consulta de escalas de missa",
+  "description": "Sistema de escalas de missa",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
   }
 }
