@@ -83,26 +83,26 @@
             const ano = parseInt(partes[0], 10);
             const mes = parseInt(partes[1], 10) - 1; // mês começa em 0
             const dia = parseInt(partes[2], 10);
-            const data = new Date(ano, mes, dia); // aqui força o fuso local
+            const data = new Date(ano, mes, dia); // garante horário local
 
             const diaSemana = data.getDay(); // 0 = Domingo, 6 = Sábado
             horarioSelect.innerHTML = '';
 
-            if (diaSemana === 6) {
+            if (diaSemana === 6) { // Sábado
                 adicionarOpcao('18h');
-            } else if (diaSemana === 0) {
+            } else if (diaSemana === 0) { // Domingo
                 adicionarOpcao('8h');
                 adicionarOpcao('10h');
                 adicionarOpcao('18h');
-            } else {
-                adicionarOpcao('');
+            } else { // Segunda a Sexta
+                adicionarOpcao('18h');
             }
         });
 
         function adicionarOpcao(horario) {
             const opt = document.createElement('option');
             opt.value = horario;
-            opt.textContent = horario || 'Selecione um horário válido';
+            opt.textContent = horario;
             horarioSelect.appendChild(opt);
         }
     });
