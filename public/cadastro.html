@@ -73,35 +73,39 @@
         <button type="submit">Cadastrar</button>
     </form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dataInput = document.getElementById('data');
-            const horarioSelect = document.getElementById('horario');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const dataInput = document.getElementById('data');
+        const horarioSelect = document.getElementById('horario');
 
-            dataInput.addEventListener('change', () => {
-                const data = new Date(dataInput.value);
-                const diaSemana = data.getDay(); // 0 = Domingo, 6 = Sábado
+        dataInput.addEventListener('change', () => {
+            const partes = dataInput.value.split('-'); // yyyy-mm-dd
+            const ano = parseInt(partes[0], 10);
+            const mes = parseInt(partes[1], 10) - 1; // mês começa em 0
+            const dia = parseInt(partes[2], 10);
+            const data = new Date(ano, mes, dia); // aqui força o fuso local
 
-                horarioSelect.innerHTML = '';
+            const diaSemana = data.getDay(); // 0 = Domingo, 6 = Sábado
+            horarioSelect.innerHTML = '';
 
-                if (diaSemana === 6) {
-                    adicionarOpcao('18h');
-                } else if (diaSemana === 0) {
-                    adicionarOpcao('8h');
-                    adicionarOpcao('10h');
-                    adicionarOpcao('18h');
-                } else {
-                    adicionarOpcao('');
-                }
-            });
-
-            function adicionarOpcao(horario) {
-                const opt = document.createElement('option');
-                opt.value = horario;
-                opt.textContent = horario || 'Selecione um horário válido';
-                horarioSelect.appendChild(opt);
+            if (diaSemana === 6) {
+                adicionarOpcao('18h');
+            } else if (diaSemana === 0) {
+                adicionarOpcao('8h');
+                adicionarOpcao('10h');
+                adicionarOpcao('18h');
+            } else {
+                adicionarOpcao('');
             }
         });
-    </script>
+
+        function adicionarOpcao(horario) {
+            const opt = document.createElement('option');
+            opt.value = horario;
+            opt.textContent = horario || 'Selecione um horário válido';
+            horarioSelect.appendChild(opt);
+        }
+    });
+</script>
 </body>
 </html>
